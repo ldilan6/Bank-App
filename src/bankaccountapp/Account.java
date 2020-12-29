@@ -16,12 +16,15 @@ public abstract class Account implements IBaseRate {
 		this.name = name;
 		this.social = social;
 		balance = initDeposit;
-		System.out.println("NAME: " + name + " SOCIAL: " + social + " balance: " + balance);
 		
 		index++;
 		this.accountNumber = setAccountNumber();
-		System.out.println("ACCOUNT NUMBER: " + this.accountNumber);
+		
+		setRate();
+		
 	}
+	
+	public abstract void setRate();
 	
 	// Set account number
 	
@@ -33,19 +36,34 @@ public abstract class Account implements IBaseRate {
 	}
 	
 	// List common methods 
-	private void deposit() {
-		
+	public void deposit(double amount) {
+		balance = balance + amount;
+		System.out.println("Depositing $" + amount);
+		printBalance();
 	}
 	
-	private void withdraw() {
-		
+	public void withdraw(double amount) {
+		balance = balance - amount;
+		System.out.println("Withdrawing $" + amount);
+		printBalance();
 	}
 	
-	private void transfer() {
-		
+	public void transfer(String toWhere, double amount) {
+		balance = balance - amount;
+		System.out.println("Transfering $" + amount + " to " + toWhere);
+		printBalance();
 	}
 	
-	private String showInfo() {
-		return "Ok";
+	public void printBalance() {
+		System.out.println("Your balance is now: $" + balance);
+	}
+	
+	public void showInfo() {
+		System.out.println(
+				"NAME: " + name +
+				"\nACCOUNT NUMBER: " + accountNumber +
+				"\nBALANCE: " + balance + 
+				"\nRate: " + rate + "%"
+				);
 	}
 }
